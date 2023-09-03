@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ColorBox from './ColorBox'
 import './Palette.css'
 import Navbar from './Navbar'
