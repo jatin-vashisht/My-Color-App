@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import ColorBox from './ColorBox'
-import './Pallete.css'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import './Pallete.css'
 
 export default function Pallete(pallete) {
     const [level, setLevel] = useState(500)
@@ -15,9 +15,11 @@ export default function Pallete(pallete) {
     }
   return (
       <div className='Pallete'>
-        <Slider defaultValue={level} min={100} max={900} step={100} onChange={changeLevel} />
+        <div className="slider">
+            <Slider defaultValue={level} min={100} max={900} step={100} onChange={changeLevel} />
+        </div>
         <div className="Pallete-colors">
-              { colorBoxes}
+            { colorBoxes}
         </div>
     </div>
   )
