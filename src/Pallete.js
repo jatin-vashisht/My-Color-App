@@ -4,7 +4,7 @@ import './Pallete.css'
 
 export default function Pallete({ paletteName, id, emoji, colors }) {
     const colorBoxes = colors.map(color => (
-        <ColorBox background={color.color} name={color.name} />
+        <ColorBox background={color.color} name={color.name} key={color.name} />
     ))
   return (
     <div className='Pallete'>
