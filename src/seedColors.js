@@ -190,7 +190,7 @@ export default [
    {
      paletteName: "Flat UI Colors Indian",
      id: "flat-ui-colors-indian",
-     emoji: "🇮🇳",
+     emoji: "IN",
      colors: [
        { name: "OrchidOrange", color: "#FEA47F" },
        { name: "SpiroDiscoBall", color: "#25CCF7" },
