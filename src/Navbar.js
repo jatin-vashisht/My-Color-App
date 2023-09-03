@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import './Navbar.css'
+import {Link} from 'react-router-dom'
 
 export default function Navbar({ level, changeLevel,changeFormat }) {
     const [format, setFormat] = useState('hex')
@@ -22,7 +23,7 @@ export default function Navbar({ level, changeLevel,changeFormat }) {
   return (
       <header className='Navbar'>
         <div className="logo">
-            <a href="#">ReactColorPicker</a>
+            <Link to="/">ReactColorPicker</Link>
         </div>
         <div className="slider-container">
             <span>Level: {level}</span>
