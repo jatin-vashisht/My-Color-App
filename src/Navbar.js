@@ -1,13 +1,14 @@
 import React,{useState} from 'react'
+import { Link } from 'react-router-dom'
 import Select from '@mui/material/Select/Select';
 import MenuItem from '@mui/material/MenuItem/MenuItem';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Slider from 'rc-slider'
+
 import 'rc-slider/assets/index.css'
-import './Navbar.css'
-import {Link} from 'react-router-dom'
+import useStyles from './styles/NavbarStyles'
 
 export default function Navbar({ level, changeLevel,changeFormat,showingAllColors }) {
     const [format, setFormat] = useState('hex')
@@ -19,21 +20,23 @@ export default function Navbar({ level, changeLevel,changeFormat,showingAllColor
     }
     const closeSnackBar = () => {
         setOpen(false)
-    }
+  }
+  const styles = useStyles
+  const {classes} = styles()
   return (
-      <header className='Navbar'>
-        <div className="logo">
+      <header className={classes.Navbar}>
+        <div className={classes.logo}>
             <Link to="/">ReactColorPicker</Link>
       </div>
       {showingAllColors &&
-        <div className="slider-container">
+        <div>
           <span>Level: {level}</span>
-          <div className="slider">
+          <div className={classes.slider}>
             <Slider defaultValue={level} min={100} max={900} step={100} onChange={changeLevel} />
           </div>
         </div>
       }
-        <div className="select-container">
+        <div className={classes.selectContainer}>
             <Select value={format} onChange={handleChange}>
                 <MenuItem value='hex'>HEX - #ffffff</MenuItem>        
                 <MenuItem value='rgb'>RGB - rgb(255,255,255)</MenuItem>        

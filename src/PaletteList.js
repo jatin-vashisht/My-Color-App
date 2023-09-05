@@ -6,7 +6,7 @@ import useStyles from './styles/PaletteListStyles'
 
 export default function PaletteList(palettes) {
     const styles = useStyles 
-    const { classes } = useStyles()
+    const { classes } = styles()
     const navigate = useNavigate()
     function goToPalette(id) {
         navigate(`/palette/${id}`)
