@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import ColorBox from './ColorBox'
-import './Palette.css'
 import Navbar from './Navbar'
 import PaletteFooter from './PaletteFooter'
-import { makeStyles } from "tss-react/mui";
+import useStyles from './styles/PaletteStyles'
 
 export default function Palette(palette) {
     const [level, setLevel] = useState(500)
@@ -19,29 +18,8 @@ export default function Palette(palette) {
         setFormat(val)
     }
   
-  const useStyles = makeStyles()(theme => ({
-    Palette: {
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    colors: {
-      height: '90%'
-    },
-    footer: {
-      backgroundColor: '#fff',
-      height: '5vh',
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      fontWeight: 'bold'
-    },
-    emoji: {
-      fontSize: '1.5rem',
-      margin: '0 1rem'
-    }
-  }))
-  const {classes} = useStyles()
+  const styles = useStyles;
+  const {classes} = styles()
   return (
       <div className={classes.Palette}>
         <Navbar level={level} changeLevel={changeLevel} changeFormat={changeFormat} showingAllColors />
