@@ -7,8 +7,7 @@ import { useParams } from 'react-router-dom'
 export default function MoreHelper() {
   const { paletteId, colorId } = useParams()
   const allShades = []
-  const colors = generatePalette(findPalette(paletteId)).colors
-  
+  const palette = generatePalette(findPalette(paletteId))
   function findPalette(id) {
     for (let p of seedColors) {
       if (p.id === id)
@@ -18,16 +17,16 @@ export default function MoreHelper() {
   function getAllShades(colors) {
     for (let shade in colors) {
       for (let color of colors[shade]) {
-        if (color.id === colorId) {
+        if (color.id === colorId && color.name.substr(-2) !== '50') {
           allShades.push(color)
         }
       }
     }
   }
-  getAllShades(colors)
+  getAllShades(palette.colors)
 
   return (
-    <SingleColorPalette allShades={allShades} />
+    <SingleColorPalette allShades={allShades} palette={palette} />
   )
 }
 

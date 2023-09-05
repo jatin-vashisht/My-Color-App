@@ -9,7 +9,7 @@ import 'rc-slider/assets/index.css'
 import './Navbar.css'
 import {Link} from 'react-router-dom'
 
-export default function Navbar({ level, changeLevel,changeFormat }) {
+export default function Navbar({ level, changeLevel,changeFormat,showingAllColors }) {
     const [format, setFormat] = useState('hex')
     const [open, setOpen] = useState(true)
     const handleChange = (e) => {
@@ -24,13 +24,15 @@ export default function Navbar({ level, changeLevel,changeFormat }) {
       <header className='Navbar'>
         <div className="logo">
             <Link to="/">ReactColorPicker</Link>
-        </div>
+      </div>
+      {showingAllColors &&
         <div className="slider-container">
-            <span>Level: {level}</span>
-            <div className="slider">
-                <Slider defaultValue={level} min={100} max={900} step={100} onChange={changeLevel} />
-            </div>      
+          <span>Level: {level}</span>
+          <div className="slider">
+            <Slider defaultValue={level} min={100} max={900} step={100} onChange={changeLevel} />
+          </div>
         </div>
+      }
         <div className="select-container">
             <Select value={format} onChange={handleChange}>
                 <MenuItem value='hex'>HEX - #ffffff</MenuItem>        

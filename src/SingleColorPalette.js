@@ -1,15 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ColorBox from './ColorBox'
+import Navbar from './Navbar'
+import PaletteFooter from './PaletteFooter'
 
-export default function SingleColorPalette({ allShades }) {
-  allShades.shift()
+export default function SingleColorPalette({ allShades,palette }) {
+  const [format, setFormat] = useState('hex')
+  const { paletteName, emoji } = palette;
   const colorBoxes = allShades.map(color => (
-    <ColorBox key={color.id} name={color.name} background={color.hex} showLink={false} />
+    <ColorBox key={color.name} name={color.name} background={color[format]} showLink={false} />
   ))
+  const changeFormat = (val) => {
+    setFormat(val)
+}
   return (
     <div className='Palette'>
-      <h1>Single Color Palette</h1>  
+      <Navbar changeFormat={changeFormat} showingAllColors={false} />
       <div className='Palette-colors'>{colorBoxes}</div>
+      <PaletteFooter paletteName={paletteName} emoji={emoji} />
     </div>
   )
 }
