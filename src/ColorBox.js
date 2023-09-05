@@ -3,7 +3,7 @@ import './ColorBox.css'
 import { CopyToClipboard} from 'react-copy-to-clipboard'
 import { Link, useLocation } from 'react-router-dom'
 
-export default function ColorBox({ name, background, id, paletteId}) {
+export default function ColorBox({ name, background, id, paletteId,showLink}) {
     const {pathname} = useLocation();
     const [copied, setCopied] = useState(false)
     function changeCopyState() {       // this will set copied to true for 1.5s , which in turn make our overlay and text visible for 1.5s
@@ -28,9 +28,11 @@ export default function ColorBox({ name, background, id, paletteId}) {
                 </div>
                 {/* we need /palette/paletteId/colorId for more of every color , we can use useLocation to get the current location 
                 , which includes paletteId in it , for colorId we can pass from palette to each colorBox*/}
-                <Link to={`${pathname}/${id}`} onClick={(e) => e.stopPropagation() }>   {/* this is to stop copy happening when more is clicked */}
-                    <span className='see-more'>More</span>  
-                </Link>
+                {showLink && (
+                    <Link to={`${pathname}/${id}`} onClick={(e) => e.stopPropagation()}>   {/* this is to stop copy happening when more is clicked */}
+                        <span className='see-more'>More</span>  
+                    </Link>
+                )}
             </div>
         </CopyToClipboard>
     ) 

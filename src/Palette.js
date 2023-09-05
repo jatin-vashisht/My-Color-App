@@ -8,7 +8,7 @@ export default function Palette(palette) {
     const [format, setFormat] = useState('hex')
     const {colors,paletteName,emoji,id} = palette.palette
     const colorBoxes = colors[level].map(color => (
-        <ColorBox background={color[format]} name={color.name} key={color.id} id={color.id} />
+        <ColorBox background={color[format]} name={color.name} key={color.id} id={color.id} showLink />
     ))
     const changeLevel = (level) => {
         setLevel(level)
