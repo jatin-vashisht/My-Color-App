@@ -1,15 +1,17 @@
 import './App.css';
-import Helper from './Helper'
+import PaletteHelper from './PaletteHelper'
 import seedColors from './seedColors';
 import {Route,Routes} from 'react-router-dom'
 import PaletteList from './PaletteList';
+import MoreHelper from './MoreHelper';
 
 function App() {
   return (
     <>
       <Routes>
         <Route path='/' element={<PaletteList palettes={seedColors} />} />
-        <Route path='/palette/:id' element={<Helper />} />
+        <Route path='/palette/:id' element={<PaletteHelper />} />
+        <Route path='/palette/:paletteId/:colorId' element={<MoreHelper />} />
       </Routes>
     </>
     // <div className="App">
