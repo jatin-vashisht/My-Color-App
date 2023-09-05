@@ -1,9 +1,6 @@
 import './App.css';
 import Helper from './Helper'
-import { useState } from 'react';
-import Palette from './Palette';
 import seedColors from './seedColors';
-import { generatePalette } from './colorHelpers';
 import {Route,Routes} from 'react-router-dom'
 import PaletteList from './PaletteList';
 
