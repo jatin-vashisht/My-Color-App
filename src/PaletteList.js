@@ -47,6 +47,7 @@ export default function PaletteList(palettes) {
                 <div className={classes.palettes}>
                     {palettes.palettes.map(palette => (
                         <MiniPalette {...palette}
+                            key={palette.id}
                             handleClick={() => goToPalette(palette.id)} />
                     ))}    
                 </div>
