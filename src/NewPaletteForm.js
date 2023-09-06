@@ -143,14 +143,13 @@ export default function NewPaletteForm({ palettes, savePalette }) {
                 validators={["required","isPaletteNameUnique"]}
                 errorMessages={["Enter a Palette name","Palette name already in use"]}
               />
-              <Button
+              {/* <Button
                 variant='contained'
                 color='primary'
               type='submit'
-              style={{display: 'inline-block'}}
               >
                 Save Palette
-              </Button>
+              </Button> */}
             </ValidatorForm>
         </Toolbar>
       </AppBar>
