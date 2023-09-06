@@ -7,7 +7,7 @@ import useStyles from './styles/PaletteStyles'
 export default function Palette(palette) {
     const [level, setLevel] = useState(500)
     const [format, setFormat] = useState('hex')
-    const {colors,paletteName,emoji,id} = palette.palette
+    const {colors,paletteName,emoji} = palette.palette
     const colorBoxes = colors[level].map(color => (
         <ColorBox background={color[format]} name={color.name} key={color.id} id={color.id} showingFullPalette />
     ))
