@@ -1,5 +1,4 @@
-'use strict'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -15,59 +14,60 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color'
 import rgbHex from "rgb-hex";
 import DraggableColorBox from './DraggableColorBox';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 
-const drawerWidth = 400;
+export default function NewPaletteForm() {
+  const [currColor, setCurrColor] = useState("red");
+  const [open, setOpen] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [colors, setColors] = useState([]);
+  
+  const drawerWidth = 400;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    height: 'calc(100vh - 64px)',
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      height: 'calc(100vh - 64px)',
+      padding: theme.spacing(3),
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: `-${drawerWidth}px`,
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      }),
+    }),
+  );
+
+  const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open', })(
+    ({ theme, open }) => ({
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
+    }),...(open && {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: `${drawerWidth}px`,
+      transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0,
     }),
-  }),
-);
+  }));
 
-const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open', })(
-  ({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
-
-export default function NewPaletteForm() {
-  const theme = useTheme();
-  const [color, setColor] = useState("red");
-  const [open, setOpen] = React.useState(false);
-  const [colors, setColors] = useState(['purple', '#e14cce']);
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  }));
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -78,12 +78,27 @@ export default function NewPaletteForm() {
   };
 
   const changeColor = (c) => {
-    setColor("#" + rgbHex(c.rgb.r, c.rgb.g, c.rgb.b, c.rgb.a))
+    setCurrColor("#" + rgbHex(c.rgb.r, c.rgb.g, c.rgb.b, c.rgb.a))
   }
 
-  const addColor = () => {
-    setColors([...colors,color])
+  const addNewColor = () => {
+    const newColor = {
+      name: newName,
+      color: currColor
+    }
+    setColors([...colors, newColor])
+    setNewName('')
   }
+
+  const handleChange = (e) => {
+    setNewName(e.target.value)
+  }
+
+  useEffect(() => {
+    ValidatorForm.addValidationRule("isColorNameUnique", value => colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase()))
+    ValidatorForm.addValidationRule("isColorUnique", value => colors.every(({ color }) => color !== currColor))
+    
+  })
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -129,15 +144,31 @@ export default function NewPaletteForm() {
           <Button variant='contained' color='primary'>Random Color</Button>
         </div>
         <ChromePicker
-          color={color}
+          color={currColor}
           onChange={changeColor}
         />
-        <Button variant='contained' color='primary' style={{backgroundColor: color}} onClick={addColor}>Add Color</Button>
+        <ValidatorForm onSubmit={addNewColor}>
+          <TextValidator
+            value={newName}
+            onChange={handleChange}
+            validators={["required","isColorNameUnique","isColorUnique"]}
+            errorMessages={["Enter a color name","Please enter a unique name","Color already used"]}
+          />
+          <Button
+            variant='contained'
+            type='submit'
+            color='primary'
+            style={{ backgroundColor: currColor }}
+            disabled={colors.length === 20}
+          >
+            {colors.length === 20 ? 'Palette Full' : 'Add Color'}
+          </Button>
+        </ValidatorForm>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
         {colors.map(color => (
-          <DraggableColorBox color={color} />
+          <DraggableColorBox name={color.name} color={color.color} />
         ))}
       </Main>
     </Box>

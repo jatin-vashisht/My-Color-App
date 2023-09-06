@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from 'tss-react/mui'
 
-export default function DraggableColorBox({ color }) {
+export default function DraggableColorBox({ color, name }) {
   const useStyles = makeStyles()(theme => ({
     root: {
       width: '20%',
@@ -16,7 +16,7 @@ export default function DraggableColorBox({ color }) {
   const {classes} = useStyles()
   return (
     <div className={classes.root} style={{backgroundColor: color}}>
-      {color}
+      {name}
     </div>
   )
 }
