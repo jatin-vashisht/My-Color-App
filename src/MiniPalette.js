@@ -2,7 +2,7 @@ import React from 'react'
 import useStyles from './styles/MiniPaletteStyles'
 
 
-export default function MiniPalette({colors,emoji,id,paletteName,handleClick}) { 
+export default function MiniPalette({ colors, emoji, id, paletteName, handleClick }) { 
     // console.log(useStyles())  // for reference
     const styles = useStyles
     const {classes} = styles()   // grab classes from here and directly use on components

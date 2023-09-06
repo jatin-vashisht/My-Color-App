@@ -5,19 +5,18 @@ import PaletteFooter from './PaletteFooter'
 import useStyles from './styles/PaletteStyles'
 
 export default function Palette(palette) {
-    const [level, setLevel] = useState(500)
-    const [format, setFormat] = useState('hex')
-    const {colors,paletteName,emoji} = palette.palette
-    const colorBoxes = colors[level].map(color => (
-        <ColorBox background={color[format]} name={color.name} key={color.id} id={color.id} showingFullPalette />
-    ))
-    const changeLevel = (level) => {
-        setLevel(level)
-    }
-    const changeFormat = (val) => {
-        setFormat(val)
-    }
-  
+  const [level, setLevel] = useState(500)
+  const [format, setFormat] = useState('hex')
+  const {colors,paletteName,emoji} = palette.palette
+  const colorBoxes = colors[level].map(color => (
+      <ColorBox background={color[format]} name={color.name} key={color.id} id={color.id} showingFullPalette />
+  ))
+  const changeLevel = (level) => {
+      setLevel(level)
+  }
+  const changeFormat = (val) => {
+      setFormat(val)
+  }
   const styles = useStyles;
   const {classes} = styles()
   return (

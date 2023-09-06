@@ -15,13 +15,15 @@ import { ChromePicker } from 'react-color'
 import rgbHex from "rgb-hex";
 import DraggableColorBox from './DraggableColorBox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { Link , useNavigate } from 'react-router-dom';
 
 
-export default function NewPaletteForm() {
+export default function NewPaletteForm({ palettes, savePalette }) {
   const [currColor, setCurrColor] = useState("red");
   const [open, setOpen] = useState(false);
   const [newName, setNewName] = useState('');
   const [colors, setColors] = useState([]);
+  const navigate = useNavigate()
   
   const drawerWidth = 400;
 
@@ -94,6 +96,17 @@ export default function NewPaletteForm() {
     setNewName(e.target.value)
   }
 
+  const handleSave = () => {
+    let newName = 'New Test Palette'
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /g,'-'),
+      colors: colors
+    }
+    savePalette(newPalette)
+    navigate('/')
+  }
+
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", value => colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase()))
     ValidatorForm.addValidationRule("isColorUnique", value => colors.every(({ color }) => color !== currColor))
@@ -103,8 +116,8 @@ export default function NewPaletteForm() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
+      <AppBar position="fixed" open={open} color='default'>
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -117,6 +130,7 @@ export default function NewPaletteForm() {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
+          <Button variant='contained' color='primary' onClick={handleSave}>Save Palette</Button>
         </Toolbar>
       </AppBar>
       <Drawer

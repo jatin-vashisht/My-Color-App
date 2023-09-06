@@ -5,7 +5,7 @@ import PaletteFooter from './PaletteFooter'
 import { Link } from 'react-router-dom'
 import useStyles from './styles/PaletteStyles'
 
-export default function SingleColorPalette({ allShades,palette }) {
+export default function SingleColorPalette({ allShades, palette }) {
   const [format, setFormat] = useState('hex')
   const { paletteName, emoji, id } = palette;
   const colorBoxes = allShades.map(color => (

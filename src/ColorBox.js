@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import chroma from 'chroma-js'
 import useStyles from './styles/ColorBoxStyles'
 
-export default function ColorBox({ name, background, id, paletteId,showingFullPalette}) {
+export default function ColorBox({ name, background, id, paletteId, showingFullPalette }) {
     const {pathname} = useLocation();
     const [copied, setCopied] = useState(false)
     const lum = chroma(background).luminance()

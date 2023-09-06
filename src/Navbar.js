@@ -10,7 +10,7 @@ import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import useStyles from './styles/NavbarStyles'
 
-export default function Navbar({ level, changeLevel,changeFormat,showingAllColors }) {
+export default function Navbar({ level, changeLevel, changeFormat, showingAllColors }) {
     const [format, setFormat] = useState('hex')
     const [open, setOpen] = useState(true)
     const handleChange = (e) => {
