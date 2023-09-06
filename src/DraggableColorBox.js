@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from 'tss-react/mui'
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function DraggableColorBox({ color, name }) {
+export default function DraggableColorBox({ color, name, deleteColor }) {
   const useStyles = makeStyles()(theme => ({
     root: {
       width: '20%',
@@ -34,12 +34,15 @@ export default function DraggableColorBox({ color, name }) {
       transition: 'all 0.3s ease-in-out'
     }
   }))
-  const {classes} = useStyles()
+  const { classes } = useStyles()
+  const handleClick = () => {
+    deleteColor(name)
+  }
   return (
     <div className={classes.root} style={{backgroundColor: color}}>
       <div className={classes.boxContent}>
         <span>{name}</span>
-        <DeleteIcon className={classes.deleteIcon} />
+        <DeleteIcon className={classes.deleteIcon} onClick={handleClick} />
       </div>
     </div>
   )
