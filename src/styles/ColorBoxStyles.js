@@ -1,4 +1,5 @@
 import { makeStyles } from "tss-react/mui";
+import sizes from './sizes'
 export default makeStyles()((theme,props) => ({
   ColorBox: {
       width: '20%',
@@ -10,7 +11,19 @@ export default makeStyles()((theme,props) => ({
       marginBottom: '-3.5px',
       ':hover button': {
           opacity: 1
-      }
+        },
+        [sizes.down('lg')]: {
+            width: '25%',
+            height: props.showingFullPalette? '20%' : '50%'
+        },
+        [sizes.down('md')]: {
+            width: '50%',
+            height: props.showingFullPalette? '10%' : '50%'
+        },
+        [sizes.down('xs')]: {
+            width: '100%',
+            height: props.showingFullPalette? '5%' : '10%'
+        },
   },
   copyText: {
       color: props.lum >= 0.7? 'black' : 'white'
