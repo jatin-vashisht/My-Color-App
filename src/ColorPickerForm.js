@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { ChromePicker } from 'react-color'
 import rgbHex from "rgb-hex";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { makeStyles } from "tss-react/mui";
 
 
 export default function ColorPickerForm({ colors,newPalette, handlePalette, isPaletteFull, addNewColor }) {
@@ -17,13 +18,23 @@ export default function ColorPickerForm({ colors,newPalette, handlePalette, isPa
   const handleSubmit = () => {
     addNewColor(currColor)
   }
+  const useStyles = makeStyles()(theme => ({
+    root: {
+      display: 'flex',
+      flexDirection: ' column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: '20px'
+    }
+  }))
+  const {classes} = useStyles()
   return (
-    <div>
+    <div className={classes.root}>
       <ChromePicker
-          color={currColor}
-          onChange={changeColor}
+        color={currColor}
+        onChange={changeColor}
         />
-        <ValidatorForm onSubmit={handleSubmit}>
+        <ValidatorForm onSubmit={handleSubmit} className={classes.root}>
           <TextValidator
             label='Color name'
             name='colorName'
@@ -36,7 +47,7 @@ export default function ColorPickerForm({ colors,newPalette, handlePalette, isPa
             variant='contained'
             type='submit'
             color='primary'
-            style={{ backgroundColor: isPaletteFull? 'grey' : currColor }}
+            style={{ backgroundColor: isPaletteFull? 'grey' : currColor,width: '100%' , marginTop: '10px'}}
             disabled={isPaletteFull}
           >
             {isPaletteFull? 'Palette Full' : 'Add Color'}

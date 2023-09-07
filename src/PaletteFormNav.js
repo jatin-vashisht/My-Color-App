@@ -53,10 +53,10 @@ export default function PaletteFormNav({ open, palettes, handleSave, handlePalet
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            Create a Palette
           </Typography>
-          <div>
-            <ValidatorForm onSubmit={handleSubmit}>
+          <div style={{display: 'flex',marginLeft: 'auto',alignItems:'center'}}>
+            <ValidatorForm onSubmit={handleSubmit} style={{display:'flex'}}>
               <TextValidator
                 label='Palette Name'
                 name='paletteName'
@@ -68,19 +68,22 @@ export default function PaletteFormNav({ open, palettes, handleSave, handlePalet
               <Button
                 variant='contained'
                 color='primary'
-              type='submit'
+                type='submit'
+                style={{padding: '15px',marginLeft:'10px'}}
               >
                 Save Palette
               </Button>
-              <Link to='/'>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                >
-                  Go Back
-                </Button>
-              </Link>
             </ValidatorForm>
+            <Link to='/'>
+              <Button
+                variant='contained'
+                color='secondary'
+                size='large'
+                style={{padding: '15px',marginLeft:'10px'}}
+              >
+                Go Back
+              </Button>
+            </Link>
           </div>
         </Toolbar>
       </AppBar>

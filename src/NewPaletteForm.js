@@ -127,12 +127,14 @@ export default function NewPaletteForm({ palettes, savePalette }) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <Typography variant='h4'>Design Your Palette</Typography>
-        <div>
-          <Button variant='contained' color='secondary' onClick={clearColors}>Clear Palette</Button>
-          <Button variant='contained' color='primary' onClick={addRandomColor} disabled={isPaletteFull}>Random Color</Button>
+        <div style={{height:'100%',display:'flex',width:'90%',alignItems:'center',justifyContent:'center',flexDirection:'column'}}>
+          <Typography variant='h4'>Design Your Palette</Typography>
+          <div>
+            <Button variant='contained' color='secondary' onClick={clearColors}>Clear Palette</Button>
+            <Button variant='contained' color='primary' onClick={addRandomColor} disabled={isPaletteFull}>Random Color</Button>
+          </div>
+          <ColorPickerForm colors={colors} isPaletteFull={isPaletteFull} addNewColor={addNewColor} newPalette={newPalette} handlePalette={handlePalette} />
         </div>
-        <ColorPickerForm colors={colors} isPaletteFull={isPaletteFull} addNewColor={addNewColor} newPalette={newPalette} handlePalette={handlePalette} />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
