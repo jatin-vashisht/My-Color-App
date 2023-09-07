@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
 import PaletteMetaForm from './PaletteMetaForm';
 
@@ -29,6 +28,10 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open',
   }));
   
 export default function PaletteFormNav({ open, palettes, handleSave, handleDrawerOpen }) {
+  const [showingForm, setShowingForm] = useState(false)
+  const showForm = () => {
+    setShowingForm(true)
+  }
   return (
     <div>
       <CssBaseline />
@@ -47,20 +50,23 @@ export default function PaletteFormNav({ open, palettes, handleSave, handleDrawe
             Create a Palette
           </Typography>
           <div style={{display: 'flex',marginLeft: 'auto',alignItems:'center'}}>
-            <PaletteMetaForm palettes={palettes} handleSave={handleSave} />
             <Link to='/'>
               <Button
                 variant='contained'
                 color='secondary'
                 size='large'
-                style={{padding: '15px',marginLeft:'10px'}}
+                style={{marginRight:'10px'}}
               >
                 Go Back
               </Button>
             </Link>
+            <Button variant="contained" onClick={showForm} style={{padding: '8px',marginRight:'10px'}}>
+              Save
+            </Button>
           </div>
         </Toolbar>
       </AppBar>
+      {showingForm && <PaletteMetaForm palettes={palettes} handleSave={handleSave} />}
     </div>
   )
 }

@@ -40,6 +40,7 @@ export default function ColorPickerForm({ colors,newPalette, handlePalette, isPa
             name='colorName'
             value={newPalette.colorName}
             onChange={handlePalette}
+            fullWidth
             validators={["required","isColorNameUnique","isColorUnique"]}
             errorMessages={["Enter a color name","Please enter a unique name","Color already used"]}
           />
