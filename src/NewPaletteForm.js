@@ -22,11 +22,16 @@ import DraggableColorBox from './DraggableColorBox';
 
 export default function NewPaletteForm({ palettes, savePalette }) {
   const [currColor, setCurrColor] = useState("red");
-  const [newPaletteName, setNewPaletteName] = useState('')
+  // const [newPaletteName, setNewPaletteName] = useState('')
+  // const [newColorName, setNewColorName] = useState('');
+  const [newPalette, setNewPalette] = useState({
+    paletteName: '',
+    colorName: ''
+  })
   const [open, setOpen] = useState(false);
-  const [newColorName, setNewColorName] = useState('');
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState(palettes[0].colors);
   const navigate = useNavigate()
+  const isPaletteFull = colors.length === 20
   
   const drawerWidth = 400;
 
@@ -86,27 +91,41 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     setCurrColor("#" + rgbHex(c.rgb.r, c.rgb.g, c.rgb.b, c.rgb.a))
   }
 
+  const clearColors = () => {
+    setColors([])
+  }
+
+  const addRandomColor = () => {
+    const allColors = palettes.map(p => p.colors).flat() // combining all palettes
+    const randomColor = allColors[Math.floor(Math.random() * allColors.length)]
+    setColors([...colors,randomColor])
+  }
+
   const addNewColor = () => {
     const newColor = {
-      name: newColorName,
+      name: newPalette.colorName,
       color: currColor
     }
     setColors([...colors, newColor])
-    setNewColorName('')
+    setNewPalette({paletteName:'',colorName:''})
   }
 
-  const handlePaletteChange = (e) => {
-    setNewPaletteName(e.target.value)
-  }
+  // const handlePaletteChange = (e) => {
+  //   setNewPaletteName(e.target.value)
+  // }
 
-  const handleColorChange = (e) => {
-    setNewColorName(e.target.value)
+  // const handleColorChange = (e) => {
+  //   setNewColorName(e.target.value)
+  // }
+
+  const handlePalette = (e) => {
+    setNewPalette({...newPalette,[e.target.name]:e.target.value})
   }
 
   const handleSave = () => {
     const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g,'-'),
+      paletteName: newPalette.paletteName,
+      id: newPalette.paletteName.toLowerCase().replace(/ /g,'-'),
       colors: colors
     }
     savePalette(newPalette)
@@ -144,23 +163,31 @@ export default function NewPaletteForm({ palettes, savePalette }) {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
+          <div>
             <ValidatorForm onSubmit={handleSave}>
-              <TextValidator
+              {/* <TextValidator
                 label='Palette Name'
                 name='newPaletteName'
                 value={newPaletteName}
                 onChange={handlePaletteChange}
                 validators={["required","isPaletteNameUnique"]}
                 errorMessages={["Enter a Palette name","Palette name already in use"]}
+              /> */}
+              <TextValidator
+                label='Palette Name'
+                name='paletteName'
+                value={newPalette.paletteName}
+                onChange={handlePalette}
               />
-              {/* <Button
+              <Button
                 variant='contained'
                 color='primary'
               type='submit'
               >
                 Save Palette
-              </Button> */}
+              </Button>
             </ValidatorForm>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -184,8 +211,8 @@ export default function NewPaletteForm({ palettes, savePalette }) {
         <Divider />
         <Typography variant='h4'>Design Your Palette</Typography>
         <div>
-          <Button variant='contained' color='secondary'>Clear Palette</Button>
-          <Button variant='contained' color='primary'>Random Color</Button>
+          <Button variant='contained' color='secondary' onClick={clearColors}>Clear Palette</Button>
+          <Button variant='contained' color='primary' onClick={addRandomColor} disabled={isPaletteFull}>Random Color</Button>
         </div>
         <ChromePicker
           color={currColor}
@@ -194,9 +221,9 @@ export default function NewPaletteForm({ palettes, savePalette }) {
         <ValidatorForm onSubmit={addNewColor}>
           <TextValidator
             label='Color name'
-            name='newColorName'
-            value={newColorName}
-            onChange={handleColorChange}
+            name='colorName'
+            value={newPalette.colorName}
+            onChange={handlePalette}
             validators={["required","isColorNameUnique","isColorUnique"]}
             errorMessages={["Enter a color name","Please enter a unique name","Color already used"]}
           />
@@ -204,10 +231,10 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             variant='contained'
             type='submit'
             color='primary'
-            style={{ backgroundColor: currColor }}
-            disabled={colors.length === 20}
+            style={{ backgroundColor: isPaletteFull? 'grey' : currColor }}
+            disabled={isPaletteFull}
           >
-            {colors.length === 20? 'Palette Full' : 'Add Color'}
+            {isPaletteFull? 'Palette Full' : 'Add Color'}
           </Button>
         </ValidatorForm>
       </Drawer>
