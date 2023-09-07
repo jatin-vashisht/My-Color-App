@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import PaletteMetaForm from './PaletteMetaForm';
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 
 
 const drawerWidth = 400;
@@ -47,7 +48,7 @@ export default function PaletteFormNav({ open, palettes, handleSave, handleDrawe
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}  // basically adding styles
           >
-            <MenuIcon />
+            <AddToPhotosIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Create a Palette

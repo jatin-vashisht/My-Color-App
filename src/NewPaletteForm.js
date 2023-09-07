@@ -30,7 +30,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     ({ theme, open }) => ({
       flexGrow: 1,
       height: 'calc(100vh - 64px)',
-      padding: theme.spacing(3),
+      padding: 0,
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -123,7 +123,6 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             <ChevronLeftIcon />
           </IconButton>
         </DrawerHeader>
-        <Divider />
         <div style={{height:'100%',display:'flex',width:'90%',alignItems:'center',justifyContent:'center',flexDirection:'column'}}>
           <Typography variant='h4'>Design Your Palette</Typography>
           <div>
