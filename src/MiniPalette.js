@@ -2,7 +2,7 @@ import React from 'react'
 import useStyles from './styles/MiniPaletteStyles'
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function MiniPalette({ colors, emoji, id, paletteName, handleClick , deletePalette }) { 
+export default function MiniPalette({ colors, emoji, id, paletteName, handleClick , openDialog }) { 
     // console.log(useStyles())  // for reference
     const styles = useStyles
     const {classes} = styles()   // grab classes from here and directly use on components
@@ -11,7 +11,7 @@ export default function MiniPalette({ colors, emoji, id, paletteName, handleClic
     ))
     const handleDelete = (e) => {
         e.stopPropagation()
-        deletePalette(id)
+        openDialog(id)
     }
     return (
         <div className={classes.root} onClick={handleClick}>

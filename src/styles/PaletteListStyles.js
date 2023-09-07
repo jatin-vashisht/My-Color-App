@@ -2,6 +2,15 @@ import { makeStyles } from "tss-react/mui";
 import sizes from "./sizes";
 import bg from './bg.svg'
 export default makeStyles()(theme => ({
+    // '@global': {    // global styles can be accessed in any file
+    //     '.fade-exit': {
+    //         opacity: 1,
+    //     },
+    //     '.fade-exit-active': {
+    //         opacity: 0,
+    //         transition: 'opacity 500ms ease-in',
+    //     }
+    // },
     root: {
         height: '100vh',
         display: 'flex',
