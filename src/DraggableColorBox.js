@@ -1,5 +1,4 @@
 import React from 'react'
-import { makeStyles } from 'tss-react/mui'
 import DeleteIcon from '@mui/icons-material/Delete';
 import useStyles from './styles/DraggableColorBoxStyles'
 

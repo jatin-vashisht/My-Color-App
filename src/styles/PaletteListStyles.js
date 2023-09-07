@@ -3,7 +3,6 @@ import sizes from "./sizes";
 import bg from './bg.svg'
 export default makeStyles()(theme => ({
     root: {
-        backgroundColor: 'blue',
         height: '100vh',
         display: 'flex',
         alignItems: 'flex-start',

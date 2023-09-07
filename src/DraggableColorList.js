@@ -1,7 +1,6 @@
 import React from 'react'
 import DraggableColorBox from './DraggableColorBox';
 import { SortableItem } from 'react-easy-sort'
-import sizes from './styles/sizes';
 import useStyles from './styles/DraggableColorListStyles'
 
 export default function DraggableColorList({colors,deleteColor}) {
