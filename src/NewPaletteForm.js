@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,10 +13,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color'
 import rgbHex from "rgb-hex";
-import DraggableColorBox from './DraggableColorBox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { Link , useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import DraggableColorList from './DraggableColorList';
+import SortableList,{SortableItem} from 'react-easy-sort'
+import { arrayMoveImmutable } from 'array-move';
+import DraggableColorBox from './DraggableColorBox';
 
 export default function NewPaletteForm({ palettes, savePalette }) {
   const [currColor, setCurrColor] = useState("red");
@@ -115,6 +117,10 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     setColors(colors.filter(color => color.name !== name))
   }
 
+  const onSortEnd = (oldIndex, newIndex) => {
+    setColors((array) => arrayMoveImmutable(array, oldIndex, newIndex))
+  }
+
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", value => colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase()))
     ValidatorForm.addValidationRule("isColorUnique", value => colors.every(({ color }) => color !== currColor))
@@ -201,15 +207,15 @@ export default function NewPaletteForm({ palettes, savePalette }) {
             style={{ backgroundColor: currColor }}
             disabled={colors.length === 20}
           >
-            {colors.length === 20 ? 'Palette Full' : 'Add Color'}
+            {colors.length === 20? 'Palette Full' : 'Add Color'}
           </Button>
         </ValidatorForm>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {colors.map(color => (
-          <DraggableColorBox name={color.name} color={color.color} key={color.name} deleteColor={deleteColor} />
-        ))}
+        <SortableList onSortEnd={onSortEnd} className="list" draggedItemClassName="dragged" style={{ height: '100%' }}>
+            <DraggableColorList colors={colors} deleteColor={deleteColor} />
+        </SortableList>
       </Main>
     </Box>
   );
