@@ -1,12 +1,18 @@
 import { makeStyles } from "tss-react/mui";
 import sizes from "./sizes";
+import bg from './bg.svg'
 export default makeStyles()(theme => ({
     root: {
         backgroundColor: 'blue',
         height: '100vh',
         display: 'flex',
         alignItems: 'flex-start',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#4928D8',
+        background: `url(${bg})`,
+        backgroundAttachment: 'fixed',
+        backgroundSize: 'cover',
+        overflow: 'scroll'
     },
     container: {
         width: '60%',
