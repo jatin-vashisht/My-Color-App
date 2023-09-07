@@ -4,7 +4,7 @@ import { Link , useNavigate } from 'react-router-dom';
 import useStyles from './styles/PaletteListStyles'
 
 
-export default function PaletteList(palettes) {
+export default function PaletteList({ palettes , deletePalette}) {
     const styles = useStyles 
     const { classes } = styles()
     const navigate = useNavigate()
@@ -19,10 +19,13 @@ export default function PaletteList(palettes) {
                     <Link to='/palette/new'>Create Palette</Link>
                 </nav>
                 <div className={classes.palettes}>
-                    {palettes.palettes.map(palette => (
+                    {palettes.map(palette => (
                         <MiniPalette {...palette}
                             key={palette.id}
-                            handleClick={() => goToPalette(palette.id)} />
+                            id={palette.id}
+                            handleClick={() => goToPalette(palette.id)}
+                            deletePalette={deletePalette}
+                        />
                     ))}    
                 </div>
             </div>

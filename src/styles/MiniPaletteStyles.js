@@ -51,9 +51,6 @@ export default makeStyles()(theme => ({  // make all styles here
       position: 'relative',
       marginBottom: '-3.5px'
     },
-    delete: {
-      
-    },
     deleteIcon: {
         color: 'white',
         backgroundColor: '#eb3d30',

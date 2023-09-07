@@ -15,14 +15,19 @@ function App() {
   }
   useEffect(() => {
     syncLocalStorage()
-  })
+  }, [palettes, savedPalettes])
+  
   const syncLocalStorage = () => {
     localStorage.setItem('palettes',JSON.stringify(palettes))
+  }
+  
+  const deletePalette = (id) => {
+    setPalettes(palettes.filter(palette => palette.id !== id))
   }
   return (
     <>
       <Routes>
-        <Route path='/' element={<PaletteList palettes={palettes} />} />
+        <Route path='/' element={<PaletteList palettes={palettes} deletePalette={deletePalette} />} />
         <Route path='/palette/new' element={<NewPaletteForm palettes={palettes} savePalette={savePalette} />} />
         <Route path='/palette/:id' element={<PaletteHelper palettes={palettes} />} />
         <Route path='/palette/:paletteId/:colorId' element={<MoreHelper palettes={palettes} />} />
