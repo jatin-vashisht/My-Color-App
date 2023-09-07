@@ -1,13 +1,15 @@
-import './App.css';
 import PaletteHelper from './PaletteHelper'
 import seedColors from './seedColors';
-import {Route,Routes} from 'react-router-dom'
+import {Route,Routes, useLocation} from 'react-router-dom'
 import PaletteList from './PaletteList';
 import MoreHelper from './MoreHelper';
 import NewPaletteForm from './NewPaletteForm';
 import { useEffect, useState } from 'react';
+import {CSSTransition,TransitionGroup} from 'react-transition-group';
+import './App.css';
 
 function App() {
+  const location = useLocation()
   const savedPalettes = JSON.parse(localStorage.getItem('palettes'))
   const [palettes, setPalettes] = useState(savedPalettes || seedColors)
   const savePalette = (newPalette) => {
@@ -25,14 +27,16 @@ function App() {
     setPalettes(palettes.filter(palette => palette.id !== id))
   }
   return (
-    <>
-      <Routes>
-        <Route path='/' element={<PaletteList palettes={palettes} deletePalette={deletePalette} />} />
-        <Route path='/palette/new' element={<NewPaletteForm palettes={palettes} savePalette={savePalette} />} />
-        <Route path='/palette/:id' element={<PaletteHelper palettes={palettes} />} />
-        <Route path='/palette/:paletteId/:colorId' element={<MoreHelper palettes={palettes} />} />
-      </Routes>
-    </>
+    <TransitionGroup>
+      <CSSTransition key={location.key} classNames='fade' timeout={500}>
+        <Routes location={location}>
+          <Route path='/' element={<div className='page'><PaletteList palettes={palettes} deletePalette={deletePalette} /></div>} />
+          <Route path='/palette/new' element={<div className='page'><NewPaletteForm palettes={palettes} savePalette={savePalette} /></div>} />
+          <Route path='/palette/:id' element={<div className='page'><PaletteHelper palettes={palettes} /></div>} />
+          <Route path='/palette/:paletteId/:colorId' element={<div className='page'><MoreHelper palettes={palettes} /></div>} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
   );
 }
 

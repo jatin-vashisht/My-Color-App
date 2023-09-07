@@ -1,10 +1,7 @@
 import React,{useState} from 'react'
 import MiniPalette from './MiniPalette'
 import { Link , useNavigate } from 'react-router-dom';
-import {
-    CSSTransition,
-    TransitionGroup,
-} from 'react-transition-group';
+import {CSSTransition,TransitionGroup} from 'react-transition-group';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -17,7 +14,6 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { blue,red } from '@mui/material/colors';
 import useStyles from './styles/PaletteListStyles'
-import './styles/PaletteListStyles.css'
 
 export default function PaletteList({ palettes, deletePalette }) {
     const [open, setOpen] = useState(false)
