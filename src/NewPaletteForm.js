@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -7,17 +7,14 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { ChromePicker } from 'react-color'
-import rgbHex from "rgb-hex";
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useNavigate } from 'react-router-dom';
 import DraggableColorList from './DraggableColorList';
 import SortableList from 'react-easy-sort'
 import { arrayMoveImmutable } from 'array-move';
 import PaletteFormNav from './PaletteFormNav';
+import ColorPickerForm from './ColorPickerForm';
 
 export default function NewPaletteForm({ palettes, savePalette }) {
-  const [currColor, setCurrColor] = useState("red");
   const [newPalette, setNewPalette] = useState({
     paletteName: '',
     colorName: ''
@@ -66,10 +63,6 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     setOpen(false);
   };
 
-  const changeColor = (c) => {
-    setCurrColor("#" + rgbHex(c.rgb.r, c.rgb.g, c.rgb.b, c.rgb.a))
-  }
-
   const clearColors = () => {
     setColors([])
   }
@@ -80,7 +73,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     setColors([...colors,randomColor])
   }
 
-  const addNewColor = () => {
+  const addNewColor = (currColor) => {
     const newColor = {
       name: newPalette.colorName,
       color: currColor
@@ -112,11 +105,6 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     setColors((array) => arrayMoveImmutable(array, oldIndex, newIndex))
   }
 
-  useEffect(() => {
-    ValidatorForm.addValidationRule("isColorNameUnique", value => colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase()))
-    ValidatorForm.addValidationRule("isColorUnique", value => colors.every(({ color }) => color !== currColor))
-  })
-
   return (
     <Box sx={{ display: 'flex' }}>
       <PaletteFormNav open={open} palettes={palettes} handleDrawerOpen={handleDrawerOpen} handleSave={handleSave} handlePalette={handlePalette} />
@@ -144,29 +132,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
           <Button variant='contained' color='secondary' onClick={clearColors}>Clear Palette</Button>
           <Button variant='contained' color='primary' onClick={addRandomColor} disabled={isPaletteFull}>Random Color</Button>
         </div>
-        <ChromePicker
-          color={currColor}
-          onChange={changeColor}
-        />
-        <ValidatorForm onSubmit={addNewColor}>
-          <TextValidator
-            label='Color name'
-            name='colorName'
-            value={newPalette.colorName}
-            onChange={handlePalette}
-            validators={["required","isColorNameUnique","isColorUnique"]}
-            errorMessages={["Enter a color name","Please enter a unique name","Color already used"]}
-          />
-          <Button
-            variant='contained'
-            type='submit'
-            color='primary'
-            style={{ backgroundColor: isPaletteFull? 'grey' : currColor }}
-            disabled={isPaletteFull}
-          >
-            {isPaletteFull? 'Palette Full' : 'Add Color'}
-          </Button>
-        </ValidatorForm>
+        <ColorPickerForm colors={colors} isPaletteFull={isPaletteFull} addNewColor={addNewColor} newPalette={newPalette} handlePalette={handlePalette} />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
