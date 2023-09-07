@@ -1,4 +1,5 @@
 import { makeStyles } from "tss-react/mui";
+import sizes from "./sizes";
 export default makeStyles()(theme => ({
   Navbar: {
     display: 'flex',
@@ -18,6 +19,9 @@ export default makeStyles()(theme => ({
     'a': {
       textDecoration: 'none',
       color: 'black'
+    },
+    [sizes.down('xs')]: {
+      display: 'none'
     }
   },
   slider: {
@@ -39,6 +43,9 @@ export default makeStyles()(theme => ({
         height: '13px',
         marginLeft: '-7px',
         marginTop: '-3px'
+    },
+    [sizes.down('md')]: {
+      width: '150px'
     }
   },
   selectContainer: {
