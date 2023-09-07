@@ -32,6 +32,9 @@ export default function PaletteFormNav({ open, palettes, handleSave, handleDrawe
   const showForm = () => {
     setShowingForm(true)
   }
+  const hideForm = () => {
+    setShowingForm(false)
+  }
   return (
     <div>
       <CssBaseline />
@@ -66,7 +69,7 @@ export default function PaletteFormNav({ open, palettes, handleSave, handleDrawe
           </div>
         </Toolbar>
       </AppBar>
-      {showingForm && <PaletteMetaForm palettes={palettes} handleSave={handleSave} />}
+      {showingForm && <PaletteMetaForm palettes={palettes} handleSave={handleSave}  hideForm={hideForm} />}
     </div>
   )
 }
