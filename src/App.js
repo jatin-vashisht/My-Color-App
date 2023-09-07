@@ -5,12 +5,19 @@ import {Route,Routes} from 'react-router-dom'
 import PaletteList from './PaletteList';
 import MoreHelper from './MoreHelper';
 import NewPaletteForm from './NewPaletteForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const [palettes, setPalettes] = useState(seedColors)
+  const savedPalettes = JSON.parse(localStorage.getItem('palettes'))
+  const [palettes, setPalettes] = useState(savedPalettes || seedColors)
   const savePalette = (newPalette) => {
     setPalettes([...palettes, newPalette])
+  }
+  useEffect(() => {
+    syncLocalStorage()
+  },[savedPalettes])
+  const syncLocalStorage = () => {
+    localStorage.setItem('palettes',JSON.stringify(palettes))
   }
   return (
     <>
