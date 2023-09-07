@@ -46,7 +46,7 @@ export default function Navbar({ level, changeLevel, changeFormat, showingAllCol
           <Snackbar
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
               open={open}
-              autoHideDuration={3000}
+              autoHideDuration={1000}
               message={
                   <span id='message-id'>Format Changed To {format.toUpperCase()}</span>
               }

@@ -1,4 +1,5 @@
 import { makeStyles } from "tss-react/mui";
+import sizes from './sizes'
 export default makeStyles()(theme => ({
   Palette: {
     height: '100vh',
@@ -36,6 +37,18 @@ export default makeStyles()(theme => ({
       lineHeight: '30px',
       textTransform: 'uppercase',
       textDecoration: 'none',
-    }
+    },
+    [sizes.down('lg')]: {
+      width: '100%',
+      height: '25%'
+    },    
+    [sizes.down('md')]: {
+      width: '50%',
+      height: '20%'
+    },    
+    [sizes.down('xs')]: {
+      width: '100%',
+      height: '10%'
+    },    
   }
 }))

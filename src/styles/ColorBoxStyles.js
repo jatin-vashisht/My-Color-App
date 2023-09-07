@@ -13,12 +13,12 @@ export default makeStyles()((theme,props) => ({
           opacity: 1
         },
         [sizes.down('lg')]: {
-            width: '25%',
-            height: props.showingFullPalette? '20%' : '50%'
+            width: props.showingFullPalette? '25%' : '33.3333%',
+            height: props.showingFullPalette? '20%' : '25%'
         },
         [sizes.down('md')]: {
             width: '50%',
-            height: props.showingFullPalette? '10%' : '50%'
+            height: props.showingFullPalette? '10%' : '20%'
         },
         [sizes.down('xs')]: {
             width: '100%',
@@ -112,6 +112,9 @@ export default makeStyles()((theme,props) => ({
           marginBottom: '0',
           padding: '1rem',
           textTransform: 'uppercase',
+          [sizes.down('xs')]: {
+              fontSize: '6rem'
+          }
       },
       'p': {
           fontSize: '2rem',
