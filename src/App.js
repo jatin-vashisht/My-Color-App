@@ -15,7 +15,7 @@ function App() {
   }
   useEffect(() => {
     syncLocalStorage()
-  },[savedPalettes])
+  })
   const syncLocalStorage = () => {
     localStorage.setItem('palettes',JSON.stringify(palettes))
   }
