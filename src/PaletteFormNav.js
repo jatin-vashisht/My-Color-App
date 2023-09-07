@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
+import PaletteMetaForm from './PaletteMetaForm';
 
 
 const drawerWidth = 400;
@@ -27,17 +28,7 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open',
     }),
   }));
   
-export default function PaletteFormNav({ open, palettes, handleSave, handlePalette, handleDrawerOpen }) {
-  const [newPaletteName, setNewPaletteName] = useState('')
-  useEffect(() => {
-    ValidatorForm.addValidationRule("isPaletteNameUnique", value => palettes.every(({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()))
-  })
-  const handleSubmit = () => {
-    handleSave(newPaletteName)
-  }
-  const handleChange = (e) => {
-    setNewPaletteName(e.target.value)
-  }
+export default function PaletteFormNav({ open, palettes, handleSave, handleDrawerOpen }) {
   return (
     <div>
       <CssBaseline />
@@ -56,24 +47,7 @@ export default function PaletteFormNav({ open, palettes, handleSave, handlePalet
             Create a Palette
           </Typography>
           <div style={{display: 'flex',marginLeft: 'auto',alignItems:'center'}}>
-            <ValidatorForm onSubmit={handleSubmit} style={{display:'flex'}}>
-              <TextValidator
-                label='Palette Name'
-                name='paletteName'
-                value={newPaletteName}
-                onChange={handleChange}
-                validators={["required","isPaletteNameUnique"]}
-                errorMessages={["Enter a Palette name","Palette name already in use"]}
-              />
-              <Button
-                variant='contained'
-                color='primary'
-                type='submit'
-                style={{padding: '15px',marginLeft:'10px'}}
-              >
-                Save Palette
-              </Button>
-            </ValidatorForm>
+            <PaletteMetaForm palettes={palettes} handleSave={handleSave} />
             <Link to='/'>
               <Button
                 variant='contained'
