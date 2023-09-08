@@ -69,7 +69,10 @@ export default function NewPaletteForm({ palettes, savePalette }) {
 
   const addRandomColor = () => {
     const allColors = palettes.map(p => p.colors).flat() // combining all palettes
-    const randomColor = allColors[Math.floor(Math.random() * allColors.length)]
+    let randomColor = allColors[Math.floor(Math.random() * allColors.length)]
+    while (colors.find(color => color.name === randomColor.name)) {
+      randomColor = allColors[Math.floor(Math.random() * allColors.length)]
+    }
     setColors([...colors,randomColor])
   }
 
