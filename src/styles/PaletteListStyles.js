@@ -11,7 +11,7 @@ export default makeStyles()(theme => ({
         background: `url(${bg})`,
         backgroundAttachment: 'fixed',
         backgroundSize: 'cover',
-        overflow: 'scroll'
+        overflow: 'auto'
     },
     container: {
         width: '60%',
