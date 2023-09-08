@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import React, { useEffect,useMemo } from 'react'
 import PaletteHelper from './PaletteHelper'
 import seedColors from './seedColors';
 import {Route,Routes, useLocation} from 'react-router-dom'
@@ -5,7 +7,7 @@ import Page from './Page'
 import PaletteList from './PaletteList';
 import MoreHelper from './MoreHelper';
 import NewPaletteForm from './NewPaletteForm';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 import './App.css';
 
@@ -16,9 +18,6 @@ function App() {
   const savePalette = (newPalette) => {
     setPalettes([...palettes, newPalette])
   }
-  useEffect(() => {
-    syncLocalStorage()
-  }, [palettes, savedPalettes])
   
   const syncLocalStorage = () => {
     localStorage.setItem('palettes',JSON.stringify(palettes))
@@ -27,6 +26,11 @@ function App() {
   const deletePalette = (id) => {
     setPalettes(palettes.filter(palette => palette.id !== id))
   }
+
+  useEffect(() => {
+    syncLocalStorage()
+  })
+
   return (
     <TransitionGroup>
       <CSSTransition key={location.key} classNames='page' timeout={500}>

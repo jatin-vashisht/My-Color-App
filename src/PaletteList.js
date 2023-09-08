@@ -48,7 +48,7 @@ export default function PaletteList({ palettes, deletePalette }) {
                             <MiniPalette {...palette}
                                 key={palette.id}
                                 id={palette.id}
-                                handleClick={() => goToPalette(palette.id)}
+                                handleClick={goToPalette}
                                 openDialog={openDialog}
                                 />
                         </CSSTransition>

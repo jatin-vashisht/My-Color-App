@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import chroma from 'chroma-js'
 import useStyles from './styles/ColorBoxStyles'
 
-export default function ColorBox({ name, background, id, paletteId, showingFullPalette }) {
+export default function ColorBox({ name, background, id, showingFullPalette }) {
     const {pathname} = useLocation();
     const [copied, setCopied] = useState(false)
     const lum = chroma(background).luminance()
@@ -17,11 +17,7 @@ export default function ColorBox({ name, background, id, paletteId, showingFullP
     }
 
     const styles = useStyles;
-    const props = {
-        lum: lum,
-        showingFullPalette: showingFullPalette
-    }
-    const { classes } = styles(props)    // make sure to pass the changing param in useStyles too ,
+    const { classes } = styles({lum,showingFullPalette})    // make sure to pass the changing param in useStyles too ,
     // else it will only apply styles based on inital values, been stuck here for 1.5 hours.So better keep this in mind
     return (
         <CopyToClipboard text={background} onCopy={changeCopyState}>

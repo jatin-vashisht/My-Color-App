@@ -14,7 +14,7 @@ export default function MiniPalette({ colors, emoji, id, paletteName, handleClic
         openDialog(id)
     }
     return (
-        <div className={classes.root} onClick={handleClick}>
+        <div className={classes.root} onClick={() => handleClick(id)}>
             <DeleteIcon className={classes.deleteIcon} onClick={handleDelete} style={{transition: 'all 0.3s ease-in-out'}}/>
             <div className={classes.colors}>{miniColorBoxes}</div>
             <h5 className={classes.title}>{paletteName} <span className={classes.emoji}>{emoji}</span> </h5>

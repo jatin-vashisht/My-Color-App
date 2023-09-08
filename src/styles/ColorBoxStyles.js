@@ -1,9 +1,9 @@
 import { makeStyles } from "tss-react/mui";
 import sizes from './sizes'
-export default makeStyles()((theme,props) => ({
+export default makeStyles()((theme,{lum,showingFullPalette}) => ({
   ColorBox: {
       width: '20%',
-      height: props.showingFullPalette? '25%' : '50%',
+      height: showingFullPalette? '25%' : '50%',
       margin: '0 auto',
       display: 'inline-block',
       position: 'relative',
@@ -13,26 +13,26 @@ export default makeStyles()((theme,props) => ({
           opacity: 1
         },
         [sizes.down('lg')]: {
-            width: props.showingFullPalette? '25%' : '33.3333%',
-            height: props.showingFullPalette? '20%' : '25%'
+            width: showingFullPalette? '25%' : '33.3333%',
+            height: showingFullPalette? '20%' : '25%'
         },
         [sizes.down('md')]: {
             width: '50%',
-            height: props.showingFullPalette? '10%' : '20%'
+            height: showingFullPalette? '10%' : '20%'
         },
         [sizes.down('xs')]: {
             width: '100%',
-            height: props.showingFullPalette? '5%' : '10%'
+            height: showingFullPalette? '5%' : '10%'
         },
   },
   copyText: {
-      color: props.lum >= 0.7? 'black' : 'white'
+      color: lum >= 0.7? 'black' : 'white'
   },
   colorName: {
-      color: props.lum <= 0.08? 'white' : 'black'
+      color: lum <= 0.08? 'white' : 'black'
   },
   seeMore: {
-      color: props.lum >= 0.7? 'rgba(0,0,0,0.6)' : 'white',
+      color: lum >= 0.7? 'rgba(0,0,0,0.6)' : 'white',
       background: 'rgba(255,255,255,0.3)',
       position: 'absolute',
       border: 'none',
@@ -45,7 +45,7 @@ export default makeStyles()((theme,props) => ({
       textTransform: 'uppercase'
   },
   copyButton: {
-      color: props.lum >= 0.7? 'rgba(0,0,0,0.6)' : 'white',
+      color: lum >= 0.7? 'rgba(0,0,0,0.6)' : 'white',
       width: '100px',
       height: '30px',
       position: 'absolute',

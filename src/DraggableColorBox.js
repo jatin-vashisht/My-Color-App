@@ -4,7 +4,7 @@ import useStyles from './styles/DraggableColorBoxStyles'
 
 export default function DraggableColorBox({ color, name, deleteColor }) {
   const styles = useStyles
-  const {classes} = styles()
+  const {classes} = styles(color)
   const handleClick = () => {
     deleteColor(name)
   }

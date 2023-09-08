@@ -1,5 +1,6 @@
 import { makeStyles } from "tss-react/mui";
-export default makeStyles()(theme => ({
+import chroma from "chroma-js";
+export default makeStyles()((theme,color) => ({
   root: {
     width: '100%',
     height: '100%',
@@ -19,7 +20,7 @@ export default makeStyles()(theme => ({
     left: '0',
     bottom: '0',
     padding: '10px',
-    color: 'rgba(0,0,0,0.5)',
+    color: chroma(color).luminance() <= 0.8? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.6)',
     letterSpacing: '1px',
     textTransform: 'uppercase',
     fontSize: '12px',

@@ -12,6 +12,7 @@ import SortableList from 'react-easy-sort'
 import { arrayMoveImmutable } from 'array-move';
 import PaletteFormNav from './PaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
+import seedColors from './seedColors'
 
 export default function NewPaletteForm({ palettes, savePalette }) {
   const [newPalette, setNewPalette] = useState({
@@ -19,7 +20,7 @@ export default function NewPaletteForm({ palettes, savePalette }) {
     colorName: ''
   })
   const [open, setOpen] = useState(false);
-  const [colors, setColors] = useState(palettes[0].colors);
+  const [colors, setColors] = useState(seedColors[0].colors);
   const navigate = useNavigate()
   const isPaletteFull = colors.length === 20
   

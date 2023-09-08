@@ -34,7 +34,7 @@ export default function ColorPickerForm({ colors,newPalette, handlePalette, isPa
         color={currColor}
         onChange={changeColor}
         />
-        <ValidatorForm onSubmit={handleSubmit} className={classes.root}>
+        <ValidatorForm onSubmit={handleSubmit} className={classes.root} instantValidate={false}>
           <TextValidator
             label='Color name'
             name='colorName'
